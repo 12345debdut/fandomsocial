@@ -11,6 +11,10 @@ A modern, cross-platform social media application inspired by [Dribbble](https:/
 - **Modern Architecture**: Clean, scalable codebases following platform best practices
 - **Performance**: Optimized for speed and responsiveness
 
+## 🎯 Design Inspiration
+![Whole design](./screenshots/design.png)
+![Mobile number login design](./screenshots/login.png)
+
 ## 📱 Platform Implementations
 
 This repository contains three complete implementations of the same application:
