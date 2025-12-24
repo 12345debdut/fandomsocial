@@ -10,6 +10,7 @@ import SwiftUI
 struct ReelMenuRoundedItem: View {
     var icon: ImageType
     var angle: Angle = Angle.degrees(0)
+    var action: () -> Void = {}
     var body: some View {
         switch icon {
         case .CustomImage(_):

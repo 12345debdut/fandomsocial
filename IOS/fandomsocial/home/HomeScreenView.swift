@@ -6,9 +6,33 @@
 //
 
 import SwiftUI
+import os
+
+enum BottomMenuType: Identifiable {
+    case like
+    case comment
+    case share
+    case send
+    case more
+    
+    var id: String {
+        switch self {
+        case .like:
+            "like"
+        case .comment:
+            "comment"
+        case .more:
+            "more"
+        case .send:
+            "send"
+        case .share:
+            "share"
+        }
+    }
+}
 
 enum BottomMenuItem: Identifiable, Hashable {
-    case ImageText(ImageType, String)
+    case ImageText(ImageType, String, )
     case Glossy(ImageType)
 
     var id: String {
@@ -22,29 +46,30 @@ enum BottomMenuItem: Identifiable, Hashable {
 }
 
 enum ReelOptions: Identifiable, Hashable {
-    case ImageText(ImageType, String)
-    case Image(ImageType)
-    case RotatedImage(ImageType, Angle)
+    case ImageText(ImageType, String, BottomMenuType)
+    case Image(ImageType, BottomMenuType)
+    case RotatedImage(ImageType, Angle, BottomMenuType)
 
     var id: String {
         switch self {
-        case let .ImageText(icon, text):
-            return "imageText_\(icon)_\(text)"
-        case let .Image(icon):
-            return "image_\(icon)"
-        case let .RotatedImage(icon, angle):
-            return "rotatedImage_\(icon)_\(angle.degrees)"
+        case let .ImageText(_, _, bottomMenuType):
+            return bottomMenuType.id
+        case let .Image(_, bottomMenuType):
+            return bottomMenuType.id
+        case let .RotatedImage(_, _, bottomMenuType):
+            return bottomMenuType.id
         }
     }
 }
 
 struct HomeScreenView: View {
     var userType: UserType = .guest
+    private let router = Router.shared
     @State private var selectedIndex: Int = 0
     @State private var menuItems: [BottomMenuItem] = [.ImageText(ImageType.SystemImage("house.fill"), "Home"), .ImageText(ImageType.SystemImage("squares.leading.rectangle"), "Main Stage"),.Glossy(ImageType.SystemImage("camera")), .ImageText(ImageType.SystemImage("shield.fill"), "Backstage"), .ImageText(ImageType.SystemImage("person"), "Profile")]
     
     @State private var reelOptions: [ReelOptions] = [
-        .ImageText(ImageType.SystemImage("heart"), "2.5K"), .ImageText(ImageType.SystemImage("ellipsis.message.fill"), "6.4K"), .Image(ImageType.CustomImage("share")), .Image(ImageType.SystemImage("paperplane")), .RotatedImage(ImageType.SystemImage("ellipsis"), Angle.degrees(90))
+        .ImageText(ImageType.SystemImage("heart"), "2.5K", BottomMenuType.like), .ImageText(ImageType.SystemImage("ellipsis.message.fill"), "6.4K", BottomMenuType.comment), .Image(ImageType.CustomImage("share"), BottomMenuType.share), .Image(ImageType.SystemImage("paperplane"), BottomMenuType.send), .RotatedImage(ImageType.SystemImage("ellipsis"), Angle.degrees(90), BottomMenuType.more)
     ]
     var body: some View {
         ZStack {
@@ -78,12 +103,18 @@ struct HomeScreenView: View {
                     VStack(spacing: 16) {
                         ForEach(reelOptions, id: \.id) { item in
                             switch item {
-                            case let .ImageText(icon, text):
-                                ReelMenuItem(icon: icon, text: text)
-                            case let .Image(icon):
-                                ReelMenuRoundedItem(icon: icon)
-                            case let .RotatedImage(icon, angle):
-                                ReelMenuRoundedItem(icon: icon, angle: angle)
+                            case let .ImageText(icon, text, bottomMenuItem):
+                                ReelMenuItem(icon: icon, text: text, action: {
+                                    handleReelMenuItem(item: bottomMenuItem)
+                                })
+                            case let .Image(icon, bottomMenuItem):
+                                ReelMenuRoundedItem(icon: icon, action: {
+                                    handleReelMenuItem(item: bottomMenuItem)
+                                })
+                            case let .RotatedImage(icon, angle, bottomMenuItem):
+                                ReelMenuRoundedItem(icon: icon, angle: angle, action: {
+                                    handleReelMenuItem(item: bottomMenuItem)
+                                })
                             }
                         }
                     }
@@ -112,6 +143,16 @@ struct HomeScreenView: View {
             }
         }
         .navigationBarBackButtonHidden()
+    }
+    
+    private func handleReelMenuItem(item: BottomMenuType) {
+        switch item {
+        case .comment:
+            router.push(Route.commentsection)
+            break
+        default:
+            AppLogger.ui.info("Reel menu tapped: \(item.id)")
+        }
     }
 }
 

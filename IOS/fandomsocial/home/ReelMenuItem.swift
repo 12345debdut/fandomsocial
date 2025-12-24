@@ -9,6 +9,7 @@ import SwiftUI
 struct ReelMenuItem: View {
     var icon: ImageType
     var text: String
+    var action: () -> Void = {}
     var body: some View {
         VStack(spacing: 8) {
             makeImage(from: icon)
@@ -21,6 +22,9 @@ struct ReelMenuItem: View {
         .foregroundColor(Color.white)
         .background(Color.secondaryColor.opacity(0.8))
         .clipShape(Capsule())
+        .onTapGesture {
+            action()
+        }
     }
 }
 

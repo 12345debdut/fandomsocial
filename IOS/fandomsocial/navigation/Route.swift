@@ -12,4 +12,5 @@ enum Route: Hashable {
     case mobilenumberinputscreen
     case mobileNumberOTPVerificationScreen(String)
     case home(UserType)
+    case commentsection
 }

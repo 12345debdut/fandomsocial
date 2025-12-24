@@ -36,6 +36,7 @@
 		E23AA8AC2EFBF3CD00E6619B /* ReelMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8AB2EFBF3CD00E6619B /* ReelMenuItem.swift */; };
 		E23AA8AE2EFBF52400E6619B /* HomeMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8AD2EFBF52400E6619B /* HomeMenuView.swift */; };
 		E23AA8B02EFBF62F00E6619B /* GlossyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8AF2EFBF62F00E6619B /* GlossyMenuView.swift */; };
+		E23AA8B32EFBF74100E6619B /* CommentSectionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8B22EFBF74100E6619B /* CommentSectionScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		E23AA8AB2EFBF3CD00E6619B /* ReelMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelMenuItem.swift; sourceTree = "<group>"; };
 		E23AA8AD2EFBF52400E6619B /* HomeMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuView.swift; sourceTree = "<group>"; };
 		E23AA8AF2EFBF62F00E6619B /* GlossyMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossyMenuView.swift; sourceTree = "<group>"; };
+		E23AA8B22EFBF74100E6619B /* CommentSectionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		E20A69562EF2D94E006A9132 /* fandomsocial */ = {
 			isa = PBXGroup;
 			children = (
+				E23AA8B12EFBF71B00E6619B /* comments */,
 				E20A697C2EF42A0B006A9132 /* theme */,
 				E20A69792EF40E2D006A9132 /* logger */,
 				E20A69732EF40AE9006A9132 /* home */,
@@ -198,6 +201,14 @@
 			path = theme;
 			sourceTree = "<group>";
 		};
+		E23AA8B12EFBF71B00E6619B /* comments */ = {
+			isa = PBXGroup;
+			children = (
+				E23AA8B22EFBF74100E6619B /* CommentSectionScreenView.swift */,
+			);
+			path = comments;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -273,6 +284,7 @@
 				E20A696B2EF3CD91006A9132 /* Router.swift in Sources */,
 				E20A69822EF55ACB006A9132 /* NoKeyboardTextFieldClass.swift in Sources */,
 				E23AA8AE2EFBF52400E6619B /* HomeMenuView.swift in Sources */,
+				E23AA8B32EFBF74100E6619B /* CommentSectionScreenView.swift in Sources */,
 				E23AA8A82EFBA0D900E6619B /* CustomImage.swift in Sources */,
 				E23AA8B02EFBF62F00E6619B /* GlossyMenuView.swift in Sources */,
 				E20A69842EF56D67006A9132 /* MobileNumberOTPVerifyView.swift in Sources */,
