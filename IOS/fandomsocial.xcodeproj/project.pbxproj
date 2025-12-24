@@ -31,6 +31,11 @@
 		E20A69862EF66902006A9132 /* OTPTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20A69852EF66902006A9132 /* OTPTextFieldView.swift */; };
 		E23AA8A42EFB125F00E6619B /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8A32EFB125F00E6619B /* HomeHeaderView.swift */; };
 		E23AA8A62EFB127E00E6619B /* ProfileSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8A52EFB127E00E6619B /* ProfileSectionView.swift */; };
+		E23AA8A82EFBA0D900E6619B /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8A72EFBA0D900E6619B /* CustomImage.swift */; };
+		E23AA8AA2EFBF39A00E6619B /* ReelMenuRoundedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8A92EFBF39A00E6619B /* ReelMenuRoundedItem.swift */; };
+		E23AA8AC2EFBF3CD00E6619B /* ReelMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8AB2EFBF3CD00E6619B /* ReelMenuItem.swift */; };
+		E23AA8AE2EFBF52400E6619B /* HomeMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8AD2EFBF52400E6619B /* HomeMenuView.swift */; };
+		E23AA8B02EFBF62F00E6619B /* GlossyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8AF2EFBF62F00E6619B /* GlossyMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +64,11 @@
 		E20A69852EF66902006A9132 /* OTPTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextFieldView.swift; sourceTree = "<group>"; };
 		E23AA8A32EFB125F00E6619B /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		E23AA8A52EFB127E00E6619B /* ProfileSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSectionView.swift; sourceTree = "<group>"; };
+		E23AA8A72EFBA0D900E6619B /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
+		E23AA8A92EFBF39A00E6619B /* ReelMenuRoundedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelMenuRoundedItem.swift; sourceTree = "<group>"; };
+		E23AA8AB2EFBF3CD00E6619B /* ReelMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelMenuItem.swift; sourceTree = "<group>"; };
+		E23AA8AD2EFBF52400E6619B /* HomeMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuView.swift; sourceTree = "<group>"; };
+		E23AA8AF2EFBF62F00E6619B /* GlossyMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlossyMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +135,7 @@
 				E20A69672EF2DCA8006A9132 /* PrimaryButtonWithTwoIconCapsule.swift */,
 				E20A697F2EF436D6006A9132 /* NumericKeyBoard.swift */,
 				E20A69852EF66902006A9132 /* OTPTextFieldView.swift */,
+				E23AA8A72EFBA0D900E6619B /* CustomImage.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -151,10 +162,14 @@
 		E20A69732EF40AE9006A9132 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				E20A69762EF40B47006A9132 /* models */,
+				E23AA8AF2EFBF62F00E6619B /* GlossyMenuView.swift */,
+				E23AA8AD2EFBF52400E6619B /* HomeMenuView.swift */,
 				E23AA8A52EFB127E00E6619B /* ProfileSectionView.swift */,
 				E23AA8A32EFB125F00E6619B /* HomeHeaderView.swift */,
-				E20A69762EF40B47006A9132 /* models */,
 				E20A69742EF40B03006A9132 /* HomeScreenView.swift */,
+				E23AA8A92EFBF39A00E6619B /* ReelMenuRoundedItem.swift */,
+				E23AA8AB2EFBF3CD00E6619B /* ReelMenuItem.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -257,9 +272,14 @@
 			files = (
 				E20A696B2EF3CD91006A9132 /* Router.swift in Sources */,
 				E20A69822EF55ACB006A9132 /* NoKeyboardTextFieldClass.swift in Sources */,
+				E23AA8AE2EFBF52400E6619B /* HomeMenuView.swift in Sources */,
+				E23AA8A82EFBA0D900E6619B /* CustomImage.swift in Sources */,
+				E23AA8B02EFBF62F00E6619B /* GlossyMenuView.swift in Sources */,
 				E20A69842EF56D67006A9132 /* MobileNumberOTPVerifyView.swift in Sources */,
+				E23AA8AA2EFBF39A00E6619B /* ReelMenuRoundedItem.swift in Sources */,
 				E20A69682EF2DCA8006A9132 /* PrimaryButtonWithTwoIconCapsule.swift in Sources */,
 				E20A69722EF4051E006A9132 /* MobileNumberView.swift in Sources */,
+				E23AA8AC2EFBF3CD00E6619B /* ReelMenuItem.swift in Sources */,
 				E20A696F2EF40310006A9132 /* NavigationRouter.swift in Sources */,
 				E23AA8A42EFB125F00E6619B /* HomeHeaderView.swift in Sources */,
 				E20A69802EF436D6006A9132 /* NumericKeyBoard.swift in Sources */,

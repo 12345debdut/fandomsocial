@@ -7,9 +7,45 @@
 
 import SwiftUI
 
+enum BottomMenuItem: Identifiable, Hashable {
+    case ImageText(ImageType, String)
+    case Glossy(ImageType)
+
+    var id: String {
+        switch self {
+        case let .ImageText(icon, text):
+            return "imageText_\(icon)_\(text)"
+        case let .Glossy(icon):
+            return "glossy_\(icon)"
+        }
+    }
+}
+
+enum ReelOptions: Identifiable, Hashable {
+    case ImageText(ImageType, String)
+    case Image(ImageType)
+    case RotatedImage(ImageType, Angle)
+
+    var id: String {
+        switch self {
+        case let .ImageText(icon, text):
+            return "imageText_\(icon)_\(text)"
+        case let .Image(icon):
+            return "image_\(icon)"
+        case let .RotatedImage(icon, angle):
+            return "rotatedImage_\(icon)_\(angle.degrees)"
+        }
+    }
+}
+
 struct HomeScreenView: View {
     var userType: UserType = .guest
-    @Environment(\.imageScale) private var safeAreaInsets
+    @State private var selectedIndex: Int = 0
+    @State private var menuItems: [BottomMenuItem] = [.ImageText(ImageType.SystemImage("house.fill"), "Home"), .ImageText(ImageType.SystemImage("squares.leading.rectangle"), "Main Stage"),.Glossy(ImageType.SystemImage("camera")), .ImageText(ImageType.SystemImage("shield.fill"), "Backstage"), .ImageText(ImageType.SystemImage("person"), "Profile")]
+    
+    @State private var reelOptions: [ReelOptions] = [
+        .ImageText(ImageType.SystemImage("heart"), "2.5K"), .ImageText(ImageType.SystemImage("ellipsis.message.fill"), "6.4K"), .Image(ImageType.CustomImage("share")), .Image(ImageType.SystemImage("paperplane")), .RotatedImage(ImageType.SystemImage("ellipsis"), Angle.degrees(90))
+    ]
     var body: some View {
         ZStack {
             // MARK: BG Image
@@ -40,112 +76,42 @@ struct HomeScreenView: View {
                     
                     // MARK: Comment section
                     VStack(spacing: 16) {
-                        
-                        VStack(spacing: 8) {
-                            Image(systemName: "heart")
-                                 .font(.system(size: 20))
-                            
-                            Text("2.5K")
-                                .font(.system(size: 14))
+                        ForEach(reelOptions, id: \.id) { item in
+                            switch item {
+                            case let .ImageText(icon, text):
+                                ReelMenuItem(icon: icon, text: text)
+                            case let .Image(icon):
+                                ReelMenuRoundedItem(icon: icon)
+                            case let .RotatedImage(icon, angle):
+                                ReelMenuRoundedItem(icon: icon, angle: angle)
+                            }
                         }
-                        .frame(width: 45, height: 80)
-                        .foregroundColor(Color.white)
-                        .background(Color.secondaryColor.opacity(0.8))
-                        .clipShape(Capsule())
-
-                        VStack(spacing: 8) {
-                            Image(systemName: "ellipsis.message.fill")
-                                 .font(.system(size: 20))
-                            
-                            Text("6.4K")
-                                .font(.system(size: 14))
-                        }
-                        .frame(width: 45, height: 80)
-                        .foregroundColor(Color.white)
-                        .background(Color.secondaryColor.opacity(0.8))
-                        .clipShape(Capsule())
-                        
-                        Image("share")
-                             .resizable()
-                             .scaledToFill()
-                             .frame(width: 45, height: 45)
-                             .foregroundColor(Color.white)
-                             .background(Color.secondaryColor.opacity(0.8)
-                             .clipShape(Circle()))
-                        
-                        Image(systemName:"paperplane")
-                             .font(.system(size: 15))
-                             .frame(width: 45, height: 45)
-                             .foregroundColor(Color.white)
-                             .background(Color.secondaryColor.opacity(0.8).clipShape(Circle()))
-                       
-                        Image(systemName:"ellipsis")
-                            .rotationEffect(Angle(degrees: 90))
-                            .font(.system(size: 15))
-                            .frame(width: 45, height: 45)
-                            .foregroundColor(Color.white)
-                            .background(Color.secondaryColor.opacity(0.8).clipShape(Circle()))
-                            
                     }
                 }.padding(.horizontal, 16)
                 
                 Color.clear.frame(height: 10)
-                
-                LazyHGrid(rows: [GridItem(.flexible())]) {
-                    HomeMenuView(isSelected: true, icon: "house.fill", text: "Home")
-                        .frame(maxHeight: .infinity)
-                    
-                    HomeMenuView(icon: "squares.leading.rectangle", text: "Main Stage")
-                        .frame(maxHeight: .infinity)
-                    
-                    GlossyMenuView()
-                        .frame(maxHeight: .infinity)
-                    
-                    HomeMenuView(icon: "shield.fill", text: "Backstage")
-                        .frame(maxHeight: .infinity)
-                    
-                    HomeMenuView(icon: "person", text: "Profile")
-                        .frame(maxHeight: .infinity)
+                HStack(spacing: 0) {
+                    ForEach(Array(menuItems.enumerated()), id: \.element.id) { index, item in
+                        switch item {
+                        case let .ImageText(icon, text):
+                            HomeMenuView(isSelected: selectedIndex == index, icon: icon, text: text)
+                                .frame(maxHeight: .infinity, alignment: .center)
+                                .onTapGesture { selectedIndex = index }
+                        case let .Glossy(icon):
+                            GlossyMenuView(icon: icon)
+                                .frame(maxHeight: .infinity, alignment: .center)
+                                .onTapGesture { selectedIndex = index }
+                        }
+                    }
                 }
                 .frame(maxWidth: .infinity)
-                .frame(height: 70)
+                .frame(height: 65)
                 .background(Color.secondaryColor.opacity(0.9))
                 .clipShape(Capsule())
                 .padding(.horizontal, 16)
             }
         }
-    }
-}
-
-struct GlossyMenuView: View {
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Circle()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-        }
-    }
-}
-
-struct HomeMenuView: View {
-    var isSelected: Bool = false
-    var icon: String
-    var text: String
-    var body: some View {
-        VStack(spacing: 0) {
-            Image(systemName: icon)
-                .font(.system(size: 18, weight: Font.Weight.bold))
-                .foregroundColor(
-                    isSelected ? Color.white : Color.white.opacity(0.7)
-                )
-            Color.clear.frame(height: 2)
-            Text(text)
-                .font(.system(size: 12))
-                .foregroundColor(
-                    isSelected ? Color.white : Color.white.opacity(0.7)
-                )
-        }
+        .navigationBarBackButtonHidden()
     }
 }
 
