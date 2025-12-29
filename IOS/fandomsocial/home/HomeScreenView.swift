@@ -71,6 +71,7 @@ struct HomeScreenView: View {
     @State private var reelOptions: [ReelOptions] = [
         .ImageText(ImageType.SystemImage("heart"), "2.5K", BottomMenuType.like), .ImageText(ImageType.SystemImage("ellipsis.message.fill"), "6.4K", BottomMenuType.comment), .Image(ImageType.CustomImage("share"), BottomMenuType.share), .Image(ImageType.SystemImage("paperplane"), BottomMenuType.send), .RotatedImage(ImageType.SystemImage("ellipsis"), Angle.degrees(90), BottomMenuType.more)
     ]
+    @State private var commentSectionVisible: Bool = false
     var body: some View {
         ZStack {
             // MARK: BG Image
@@ -141,6 +142,7 @@ struct HomeScreenView: View {
                 .clipShape(Capsule())
                 .padding(.horizontal, 16)
             }
+            CommentSectionScreenView(shown: $commentSectionVisible)
         }
         .navigationBarBackButtonHidden()
     }
@@ -148,7 +150,9 @@ struct HomeScreenView: View {
     private func handleReelMenuItem(item: BottomMenuType) {
         switch item {
         case .comment:
-            router.push(Route.commentsection)
+            withAnimation(.spring()) {
+                commentSectionVisible.toggle()
+            }
             break
         default:
             AppLogger.ui.info("Reel menu tapped: \(item.id)")

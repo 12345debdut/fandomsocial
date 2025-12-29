@@ -28,8 +28,6 @@ struct NavigationRouter<Root>: View where Root : View {
                         MobileNumberOTPVerifyView(mobileNumber: mobileNumber)
                     case .home(let userType):
                         HomeScreenView(userType: userType)
-                    case .commentsection:
-                        CommentSectionScreenView()
                     }
                 }
         }

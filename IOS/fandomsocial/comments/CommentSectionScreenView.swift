@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import os
 
 struct CommentSectionScreenView: View {
+    @Binding var shown: Bool
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        CrossModalView(shown: $shown, content: {
+            CommentSectionView()
+        })
     }
 }
 
 #Preview {
-    CommentSectionScreenView()
+    CommentSectionScreenView(shown: .constant(true))
 }
