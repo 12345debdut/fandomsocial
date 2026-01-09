@@ -8,103 +8,105 @@
 import SwiftUI
 
 struct NumericKeypad: View {
-    var onNumberTap: (String) -> Void
-    var onDeleteTap: () -> Void
-    var onChevronTap: (() -> Void)? = nil
-    
-    private let rowCount: CGFloat = 4
-    
-    // Grid columns: 3 flexible columns with spacing
-    private let columns = [
-        GridItem(.flexible(), spacing: 0),
-        GridItem(.flexible(), spacing: 0),
-        GridItem(.flexible(), spacing: 0)
+    let onNumberTap: (String) -> Void
+    let onDeleteTap: () -> Void
+    let onChevronTap: () -> Void
+
+    private let rows: [[Key]] = [
+        [.digit("1"), .digit("2"), .digit("3")],
+        [.digit("4"), .digit("5"), .digit("6")],
+        [.digit("7"), .digit("8"), .digit("9")],
+        [.chevron, .digit("0"), .delete]
     ]
-    
-    // Keypad items in order: 1-9, then chevron, 0, delete
-    private var keypadItems: [KeypadItem] {
-        var items: [KeypadItem] = []
-        // Numbers 1-9
-        for i in 1...9 {
-            items.append(.number("\(i)"))
-        }
-        // Bottom row: chevron, 0, delete
-        items.append(.chevron)
-        items.append(.number("0"))
-        items.append(.delete)
-        return items
-    }
-    
+
     var body: some View {
-        GeometryReader { geometry in
-            let buttonHeight = geometry.size.height > 0 ? geometry.size.height / rowCount : 70
-            
-            LazyVGrid(columns: columns, spacing: 0) {
-                ForEach(keypadItems, id: \.self) { item in
-                    KeypadButton(content: item, height: buttonHeight) {
-                        handleTap(for: item)
-                    }
+        VStack(spacing: 12) {
+            // Row 1
+            HStack(spacing: 12) {
+                KeyView(key: .digit("1"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+                KeyView(key: .digit("2"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+                KeyView(key: .digit("3"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+            }
+            // Row 2
+            HStack(spacing: 12) {
+                KeyView(key: .digit("4"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+                KeyView(key: .digit("5"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+                KeyView(key: .digit("6"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+            }
+            // Row 3
+            HStack(spacing: 12) {
+                KeyView(key: .digit("7"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+                KeyView(key: .digit("8"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+                KeyView(key: .digit("9"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+            }
+            // Row 4
+            HStack(spacing: 12) {
+                KeyView(key: .chevron, onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+                KeyView(key: .digit("0"), onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+                KeyView(key: .delete, onNumberTap: onNumberTap, onDeleteTap: onDeleteTap, onChevronTap: onChevronTap)
+                    .frame(maxWidth: .infinity, minHeight: 54)
+            }
+        }
+        .padding(.vertical, 8)
+    }
+
+    enum Key: Hashable {
+        case digit(String)
+        case delete
+        case chevron
+    }
+
+    struct KeyView: View {
+        let key: Key
+        let onNumberTap: (String) -> Void
+        let onDeleteTap: () -> Void
+        let onChevronTap: () -> Void
+
+        var body: some View {
+            Button {
+                switch key {
+                case .digit(let d): onNumberTap(d)
+                case .delete: onDeleteTap()
+                case .chevron: onChevronTap()
+                }
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.secondaryColor)
+                    content
                 }
             }
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.secondaryColor)
-            )
+            .buttonStyle(.plain)
         }
-        .drawingGroup()
-    }
-    
-    private func handleTap(for item: KeypadItem) {
-        switch item {
-        case .number(let number):
-            onNumberTap(number)
-        case .chevron:
-            onChevronTap?()
-        case .delete:
-            onDeleteTap()
-        }
-    }
-}
 
-enum KeypadItem: Hashable {
-    case number(String)
-    case chevron
-    case delete
-}
-
-struct KeypadButton: View {
-    let content: KeypadItem
-    let height: CGFloat
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            ZStack {
-                // Button background (transparent for seamless look)
-                Color.clear
-                
-                // Content
-                Group {
-                    switch content {
-                    case .number(let number):
-                        Text(number)
-                            .font(.system(size: 28, weight: .regular))
-                            .foregroundColor(Color.white)
-                    case .chevron:
-                        Image(systemName: "chevron.down")
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(Color.white)
-                    case .delete:
-                        Image(systemName: "delete.backward")
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(Color.white)
-                    }
-                }
+        @ViewBuilder
+        var content: some View {
+            switch key {
+            case .digit(let d):
+                Text(d)
+                    .font(.system(size: 24, weight: .medium))
+                    .foregroundColor(.white)
+            case .delete:
+                Image(systemName: "delete.left")
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundColor(.white)
+            case .chevron:
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundColor(.white)
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: height)
         }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 

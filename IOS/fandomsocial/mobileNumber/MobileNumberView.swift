@@ -11,6 +11,23 @@ struct MobileNumberView: View {
     var router = Router.shared
     @State var mobileNumber: String = ""
     @State var isFocused: Bool = false
+    
+    // Pre-create keypad handlers to avoid closure creation overhead
+    private func handleNumberTap(_ number: String) {
+        if isFocused {
+            mobileNumber += number
+        }
+    }
+    
+    private func handleDeleteTap() {
+        if isFocused && !mobileNumber.isEmpty {
+            mobileNumber.removeLast()
+        }
+    }
+    
+    private func handleChevronTap() {
+        isFocused = false
+    }
     var body: some View {
         VStack(spacing: 0) {
             Image(systemName: "arrow.backward")
@@ -40,12 +57,7 @@ struct MobileNumberView: View {
                 text: $mobileNumber,
                 isFocused: $isFocused,
                 placeholder: "Enter your number",
-                onTap: {
-                    // Show custom keypad
-                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                        isFocused = true
-                    }
-                }
+                onTap: {}
             )
             .frame(maxWidth: .infinity, alignment: .leading)
             .frame(height: 60)
@@ -69,32 +81,20 @@ struct MobileNumberView: View {
             })
             Color.clear.frame(height: 30)
             
-            ZStack(alignment: .bottom) {
-                if !isFocused {
-                    Spacer()
-                }
-                
-                if isFocused {
-                    NumericKeypad(
-                        onNumberTap: { number in
-                            mobileNumber += number
-                        },
-                        onDeleteTap: {
-                            if !mobileNumber.isEmpty {
-                                mobileNumber.removeLast()
-                            }
-                        },
-                        onChevronTap: {
-                            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                                isFocused = false
-                            }
-                        }
-                    )
-                    .frame(maxHeight: .infinity)
-                    .padding(.horizontal, 20)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-            }
+            Spacer()
+            
+            // Keypad - always rendered to avoid first-load hitch
+            NumericKeypad(
+                onNumberTap: handleNumberTap,
+                onDeleteTap: handleDeleteTap,
+                onChevronTap: handleChevronTap
+            )
+            .padding(.horizontal, 20)
+            .opacity(isFocused ? 1.0 : 0.0)
+            .offset(y: isFocused ? 0.0 : 100.0)
+            .allowsHitTesting(isFocused)
+            .accessibilityHidden(!isFocused)
+            // No animation on first appearance to eliminate hitch
             .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isFocused)
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity)

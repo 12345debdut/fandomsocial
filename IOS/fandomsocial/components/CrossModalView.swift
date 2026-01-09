@@ -23,10 +23,8 @@ struct CrossModalView<Content: View>: View {
                 return shown
             }, set: { visible in
                 if visible {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        withAnimation(.spring(bounce: 0.3)) {
-                            contentVisible = true
-                        }
+                    withAnimation(.spring(bounce: 0.3)) {
+                        contentVisible = true
                     }
                 } else {
                     withAnimation(.spring(duration: 0.3)) {
@@ -47,20 +45,32 @@ struct CrossModalView<Content: View>: View {
                 if contentVisible {
                     VStack(spacing: 0) {
                         Color.clear.frame(height: 40)
-                        Color.white.frame(width: 60, height: 60).clipShape(Circle()).overlay {
+                        Color.white
+                            .frame(width: 60, height: 60)
+                            .clipShape(Circle())
+                            .overlay {
+                                Color("secondaryWhiteBG").opacity(0.5)
+                                    .clipShape(Circle())
+                            }
+                            .overlay {
                             Image(systemName: "xmark")
                                 .font(.system(size: 16, weight: Font.Weight.medium))
                         }.onTapGesture {
                             viewShown.wrappedValue = false
                         }
                         Color.clear.frame(height: 8)
-                        VStack {
-                            content
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color.white.cornerRadius(20))
-                        .padding(.horizontal, 12)
+                        Color.white
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background()
+                            .overlay {
+                                Color("secondaryWhiteBG").opacity(0.5)
+                            }
+                            .overlay {
+                                content
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            }
+                            .clipShape(RoundedRectangle(cornerRadius: 40))
+                            .padding(.horizontal, 12)
                     }.transition(AnyTransition.move(edge: .bottom))
                 }
             }.onAppear {

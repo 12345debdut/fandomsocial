@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+import os
 
 // Custom UITextField that prevents keyboard from appearing
 class NoKeyboardTextFieldClass: UITextField {
@@ -65,12 +66,14 @@ struct NoKeyboardTextField: UIViewRepresentable {
     
     func makeUIView(context: Context) -> NoKeyboardTextFieldClass {
         let textField = NoKeyboardTextFieldClass()
-        textField.placeholder = placeholder
         textField.text = text
         textField.textColor = .white
         textField.font = textFontStyle
         textField.textAlignment = textAlignment
         textField.cursorVisible = cursorVisible
+        
+        // Store reference in coordinator for programmatic dismissal
+        context.coordinator.textField = textField
         
         // Set placeholder color
         textField.attributedPlaceholder = NSAttributedString(
@@ -81,9 +84,6 @@ struct NoKeyboardTextField: UIViewRepresentable {
         // Handle tap to show custom keypad
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textFieldTapped(_:)), for: .touchDown)
         
-        // Update text changes
-        textField.addTarget(context.coordinator, action: #selector(Coordinator.textFieldDidChange(_:)), for: .editingChanged)
-        
         // Set delegate to handle text changes
         textField.delegate = context.coordinator
         
@@ -91,27 +91,19 @@ struct NoKeyboardTextField: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NoKeyboardTextFieldClass, context: Context) {
+        // Update text field reference in case it changed
+        context.coordinator.textField = uiView
+        
         if uiView.text != text {
             uiView.text = text
         }
-        if !isFocused {
-            uiView.resignFirstResponder()
+        AppLogger.ui.info("updateUIView called \(isFocused)")
+        
+        // Handle programmatic dismissal when isFocused changes to false
+        // Only dismiss if text field is currently first responder to avoid RTIInputSystemClient warnings
+        if !isFocused && uiView.isFirstResponder {
+            context.coordinator.dismissTextField()
         }
-        // Update cursor visibility
-        if uiView.cursorVisible != cursorVisible {
-            uiView.cursorVisible = cursorVisible
-        }
-        if uiView.textAlignment != textAlignment {
-            uiView.textAlignment = textAlignment
-        }
-        if uiView.placeholder != placeholder {
-            uiView.placeholder = placeholder
-        }
-        // Update placeholder color
-        uiView.attributedPlaceholder = NSAttributedString(
-            string: placeholder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.4)]
-        )
     }
     
     func makeCoordinator() -> Coordinator {
@@ -120,18 +112,38 @@ struct NoKeyboardTextField: UIViewRepresentable {
     
     class Coordinator: NSObject, UITextFieldDelegate {
         var parent: NoKeyboardTextField
+        weak var textField: NoKeyboardTextFieldClass?
         
         init(_ parent: NoKeyboardTextField) {
             self.parent = parent
         }
         
+        func dismissTextField() {
+            // Safely dismiss text field using window.endEditing to avoid RTIInputSystemClient warnings
+            DispatchQueue.main.async {
+                if let textField = self.textField, let window = textField.window {
+                    window.endEditing(true)
+                }
+            }
+        }
+        
         @objc func textFieldTapped(_ textField: UITextField) {
-            // Show custom keypad immediately
+            // Let UIKit handle becoming first responder naturally through touchDown
             parent.onTap?()
         }
         
-        @objc func textFieldDidChange(_ textField: UITextField) {
-            parent.text = textField.text ?? ""
+        func textFieldDidBeginEditing(_ textField: UITextField) {
+            // Sync binding when text field becomes first responder naturally
+            if !parent.isFocused {
+                parent.isFocused = true
+            }
+        }
+        
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            // Sync binding when text field resigns first responder naturally
+            if parent.isFocused {
+                parent.isFocused = false
+            }
         }
         
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

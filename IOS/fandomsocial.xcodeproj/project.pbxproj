@@ -39,6 +39,12 @@
 		E23AA8B32EFBF74100E6619B /* CommentSectionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8B22EFBF74100E6619B /* CommentSectionScreenView.swift */; };
 		E23AA8B52F026F9D00E6619B /* CommentSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8B42F026F9D00E6619B /* CommentSectionView.swift */; };
 		E23AA8B72F0271E200E6619B /* CrossModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8B62F0271E200E6619B /* CrossModalView.swift */; };
+		E23AA8B92F0ABCAB00E6619B /* KeyPadPerfTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AA8B82F0ABCAB00E6619B /* KeyPadPerfTest.swift */; };
+		E2B2E84B2F0AD01E0082154F /* CommentSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B2E84A2F0AD01E0082154F /* CommentSectionViewModel.swift */; };
+		E2B2E8522F10DD510082154F /* profile1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2B2E84E2F10DD510082154F /* profile1.jpg */; };
+		E2B2E8532F10DD510082154F /* profile4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2B2E8512F10DD510082154F /* profile4.jpg */; };
+		E2B2E8542F10DD510082154F /* profile2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2B2E84F2F10DD510082154F /* profile2.jpg */; };
+		E2B2E8552F10DD510082154F /* profile3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2B2E8502F10DD510082154F /* profile3.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +81,12 @@
 		E23AA8B22EFBF74100E6619B /* CommentSectionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionScreenView.swift; sourceTree = "<group>"; };
 		E23AA8B42F026F9D00E6619B /* CommentSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionView.swift; sourceTree = "<group>"; };
 		E23AA8B62F0271E200E6619B /* CrossModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossModalView.swift; sourceTree = "<group>"; };
+		E23AA8B82F0ABCAB00E6619B /* KeyPadPerfTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPadPerfTest.swift; sourceTree = "<group>"; };
+		E2B2E84A2F0AD01E0082154F /* CommentSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionViewModel.swift; sourceTree = "<group>"; };
+		E2B2E84E2F10DD510082154F /* profile1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile1.jpg; sourceTree = "<group>"; };
+		E2B2E84F2F10DD510082154F /* profile2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile2.jpg; sourceTree = "<group>"; };
+		E2B2E8502F10DD510082154F /* profile3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile3.jpg; sourceTree = "<group>"; };
+		E2B2E8512F10DD510082154F /* profile4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile4.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +119,7 @@
 		E20A69562EF2D94E006A9132 /* fandomsocial */ = {
 			isa = PBXGroup;
 			children = (
+				E2B2E84C2F10DCFA0082154F /* Resources */,
 				E23AA8B12EFBF71B00E6619B /* comments */,
 				E20A697C2EF42A0B006A9132 /* theme */,
 				E20A69792EF40E2D006A9132 /* logger */,
@@ -144,6 +157,7 @@
 				E20A69852EF66902006A9132 /* OTPTextFieldView.swift */,
 				E23AA8A72EFBA0D900E6619B /* CustomImage.swift */,
 				E23AA8B62F0271E200E6619B /* CrossModalView.swift */,
+				E23AA8B82F0ABCAB00E6619B /* KeyPadPerfTest.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -211,8 +225,28 @@
 			children = (
 				E23AA8B22EFBF74100E6619B /* CommentSectionScreenView.swift */,
 				E23AA8B42F026F9D00E6619B /* CommentSectionView.swift */,
+				E2B2E84A2F0AD01E0082154F /* CommentSectionViewModel.swift */,
 			);
 			path = comments;
+			sourceTree = "<group>";
+		};
+		E2B2E84C2F10DCFA0082154F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E2B2E84D2F10DD050082154F /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E2B2E84D2F10DD050082154F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				E2B2E84E2F10DD510082154F /* profile1.jpg */,
+				E2B2E84F2F10DD510082154F /* profile2.jpg */,
+				E2B2E8502F10DD510082154F /* profile3.jpg */,
+				E2B2E8512F10DD510082154F /* profile4.jpg */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +310,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2B2E8522F10DD510082154F /* profile1.jpg in Resources */,
+				E2B2E8532F10DD510082154F /* profile4.jpg in Resources */,
+				E2B2E8542F10DD510082154F /* profile2.jpg in Resources */,
+				E2B2E8552F10DD510082154F /* profile3.jpg in Resources */,
 				E20A695A2EF2D94E006A9132 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,6 +331,7 @@
 				E23AA8B32EFBF74100E6619B /* CommentSectionScreenView.swift in Sources */,
 				E23AA8A82EFBA0D900E6619B /* CustomImage.swift in Sources */,
 				E23AA8B02EFBF62F00E6619B /* GlossyMenuView.swift in Sources */,
+				E2B2E84B2F0AD01E0082154F /* CommentSectionViewModel.swift in Sources */,
 				E20A69842EF56D67006A9132 /* MobileNumberOTPVerifyView.swift in Sources */,
 				E23AA8B72F0271E200E6619B /* CrossModalView.swift in Sources */,
 				E23AA8AA2EFBF39A00E6619B /* ReelMenuRoundedItem.swift in Sources */,
@@ -313,6 +352,7 @@
 				E20A697B2EF40E40006A9132 /* AppLogger.swift in Sources */,
 				E20A69782EF40B66006A9132 /* UserType.swift in Sources */,
 				E20A697E2EF42A28006A9132 /* AppColors.swift in Sources */,
+				E23AA8B92F0ABCAB00E6619B /* KeyPadPerfTest.swift in Sources */,
 				E23AA8A62EFB127E00E6619B /* ProfileSectionView.swift in Sources */,
 				E20A69662EF2DBDE006A9132 /* TermsAndConditionView.swift in Sources */,
 				E20A69862EF66902006A9132 /* OTPTextFieldView.swift in Sources */,
