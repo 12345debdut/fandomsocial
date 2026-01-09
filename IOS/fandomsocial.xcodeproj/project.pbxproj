@@ -45,6 +45,7 @@
 		E2B2E8532F10DD510082154F /* profile4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2B2E8512F10DD510082154F /* profile4.jpg */; };
 		E2B2E8542F10DD510082154F /* profile2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2B2E84F2F10DD510082154F /* profile2.jpg */; };
 		E2B2E8552F10DD510082154F /* profile3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2B2E8502F10DD510082154F /* profile3.jpg */; };
+		E2B2E8572F1109140082154F /* LazyAssetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B2E8562F1109140082154F /* LazyAssetImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		E2B2E84F2F10DD510082154F /* profile2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile2.jpg; sourceTree = "<group>"; };
 		E2B2E8502F10DD510082154F /* profile3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile3.jpg; sourceTree = "<group>"; };
 		E2B2E8512F10DD510082154F /* profile4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile4.jpg; sourceTree = "<group>"; };
+		E2B2E8562F1109140082154F /* LazyAssetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyAssetImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 				E23AA8A72EFBA0D900E6619B /* CustomImage.swift */,
 				E23AA8B62F0271E200E6619B /* CrossModalView.swift */,
 				E23AA8B82F0ABCAB00E6619B /* KeyPadPerfTest.swift */,
+				E2B2E8562F1109140082154F /* LazyAssetImage.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				E23AA8AC2EFBF3CD00E6619B /* ReelMenuItem.swift in Sources */,
 				E20A696F2EF40310006A9132 /* NavigationRouter.swift in Sources */,
 				E23AA8A42EFB125F00E6619B /* HomeHeaderView.swift in Sources */,
+				E2B2E8572F1109140082154F /* LazyAssetImage.swift in Sources */,
 				E20A69802EF436D6006A9132 /* NumericKeyBoard.swift in Sources */,
 				E20A69572EF2D94E006A9132 /* ContentView.swift in Sources */,
 				E20A69752EF40B03006A9132 /* HomeScreenView.swift in Sources */,

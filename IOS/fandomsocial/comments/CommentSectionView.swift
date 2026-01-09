@@ -8,18 +8,6 @@
 import SwiftUI
 import os
 
-struct CommentSectionItem: Identifiable {
-    let image: String
-    let name: String
-    let comment: String
-    let date: String
-    let isLiked: Bool
-    let likes: Int
-    let replyCount: Int
-    
-    var id = UUID().uuidString
-}
-
 struct CommentSectionView: View {
     @StateObject private var viewModel = CommentSectionViewModel()
     @State private var animatedSet = Set<String>()
@@ -52,7 +40,7 @@ struct CommentSectionView: View {
             try? await Task.sleep(nanoseconds: 350_000_000)
             _ = await MainActor.run(body: {
                 for index in 1..<animatedCount {
-                    _ = withAnimation(.spring(duration: 0.35).delay(Double(index - 1) * 0.35)) {
+                    _ = withAnimation(.spring(duration: 0.35).delay(calculateDelayBasedOnIndex(index))) {
                         animatedSet.insert(items[index].id)
                     }
                 }
@@ -61,6 +49,14 @@ struct CommentSectionView: View {
                 }
             })
         }
+    }
+    
+    private func calculateDelayBasedOnIndex(_ index: Int) -> Double {
+        let delay = Double(index - 1) * 0.35
+        guard delay > 0 else {
+            return 0
+        }
+        return delay - 0.2
     }
 }
 
@@ -108,7 +104,7 @@ struct CommentSectionItemView: View {
     var item: CommentSectionItem
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            LazyAssetImage(name: item.image, size: .init(width: 40, height: 40))
+            LazyAssetImage(name: item.image, size: .init(width: 40, height: 40), scale: 3)
                 .clipShape(Circle())
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 6) {
@@ -147,72 +143,6 @@ struct CommentSectionItemView: View {
                 .font(.system(size: 18))
             
         }
-    }
-}
-
-struct LazyAssetImage: View {
-    let name: String
-    let size: CGSize
-
-    @State private var image: UIImage?
-
-    var body: some View {
-        Group {
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-            } else {
-                Color.gray.opacity(0.2)
-            }
-        }
-        .frame(width: size.width, height: size.height)
-        .clipped()
-        .task {
-            func loadDownsampledAsset(
-                name: String,
-                size: CGSize
-            ) async -> UIImage? {
-                await Task.detached(priority: .utility){
-                    guard let url = Bundle.main.url(
-                        forResource: name,
-                        withExtension: "jpg"
-                    ),
-                    let data = try? Data(contentsOf: url)
-                    else { return nil }
-
-                    return await downsample(data: data, to: size)
-                }.value
-            }
-            if image == nil {
-                let downLoadedImage = await loadDownsampledAsset(name: name, size: size)
-                AppLogger.ui.info("Downloaded image: \(downLoadedImage)")
-                await MainActor.run {
-                    if let downLoadedImage {
-                        image = downLoadedImage
-                    }
-                }
-            }
-        }
-    }
-    
-    func downsample(
-        data: Data,
-        to pointSize: CGSize
-    ) async -> UIImage? {
-        let sourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-        guard let source = CGImageSourceCreateWithData(data as CFData, sourceOptions) else { return nil }
-
-        let maxDimension = max(pointSize.width, pointSize.height)
-        let options = [
-            kCGImageSourceCreateThumbnailFromImageAlways: true,
-            kCGImageSourceShouldCacheImmediately: true,
-            kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceThumbnailMaxPixelSize: maxDimension
-        ] as CFDictionary
-        AppLogger.ui.info("Thread name: \(Thread.isMainThread)")
-        return CGImageSourceCreateThumbnailAtIndex(source, 0, options)
-            .map { UIImage(cgImage: $0) }
     }
 }
 

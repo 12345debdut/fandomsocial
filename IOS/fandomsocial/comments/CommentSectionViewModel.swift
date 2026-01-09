@@ -22,3 +22,15 @@ class CommentSectionViewModel: ObservableObject {
         ]
     }
 }
+
+struct CommentSectionItem: Identifiable {
+    let image: String
+    let name: String
+    let comment: String
+    let date: String
+    let isLiked: Bool
+    let likes: Int
+    let replyCount: Int
+    
+    var id = UUID().uuidString
+}

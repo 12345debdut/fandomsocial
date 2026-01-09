@@ -97,7 +97,6 @@ struct NoKeyboardTextField: UIViewRepresentable {
         if uiView.text != text {
             uiView.text = text
         }
-        AppLogger.ui.info("updateUIView called \(isFocused)")
         
         // Handle programmatic dismissal when isFocused changes to false
         // Only dismiss if text field is currently first responder to avoid RTIInputSystemClient warnings

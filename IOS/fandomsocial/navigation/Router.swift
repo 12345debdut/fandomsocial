@@ -12,7 +12,7 @@ import os
 
 final class Router: ObservableObject {
     static let shared = Router()
-    @Published var screens: [Route] = [.home(.member)]
+    @Published var screens: [Route] = []
 
     func push(_ screen: Route) {
         screens.append(screen)
