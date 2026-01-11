@@ -16,7 +16,7 @@ A modern, cross-platform social media application inspired by [Dribbble](https:/
 ![Mobile number login design](./screenshots/login.png)
 
 ## 📱 Final output
-![Actual Design](./screenshots/fandomsocial.mp4)
+![Actual Design](./screenshots/fandomsocial.gif)
 
 ## 📱 Platform Implementations
 
