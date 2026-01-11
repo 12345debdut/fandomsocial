@@ -15,6 +15,9 @@ A modern, cross-platform social media application inspired by [Dribbble](https:/
 ![Whole design](./screenshots/design.png)
 ![Mobile number login design](./screenshots/login.png)
 
+## 📱 Final output
+![Actual Design](./screenshots/fandomsocial.mp4)
+
 ## 📱 Platform Implementations
 
 This repository contains three complete implementations of the same application:
@@ -30,28 +33,6 @@ This repository contains three complete implementations of the same application:
   - Smooth animations and transitions
   - Dark mode support
 
-### 🤖 Android (Kotlin/Jetpack Compose)
-- **Location**: `Android/` (Coming Soon)
-- **Framework**: Jetpack Compose with Kotlin
-- **Architecture**: MVVM with Navigation Component
-- **Status**: 🚧 Planned
-- **Planned Features**:
-  - Material Design 3 components
-  - Custom Compose components matching iOS design
-  - Kotlin Coroutines for async operations
-  - Jetpack Compose Navigation
-
-### ⚛️ React Native
-- **Location**: `ReactNative/` (Coming Soon)
-- **Framework**: React Native with TypeScript
-- **Architecture**: Component-based with React Navigation
-- **Status**: 🚧 Planned
-- **Planned Features**:
-  - Cross-platform shared components
-  - React Navigation for routing
-  - Native module integrations
-  - Performance optimizations with React.memo and useMemo
-
 ## 🏗️ Project Structure
 
 ```
@@ -66,22 +47,6 @@ fandomsocial/
 │   │   ├── theme/                # App theming
 │   │   └── logger/               # Logging utilities
 │   └── fandomsocial.xcodeproj/
-│
-├── Android/                      # Android Kotlin/Jetpack Compose (Planned)
-│   ├── app/
-│   │   ├── src/main/java/...    # Kotlin source files
-│   │   └── src/main/res/        # Resources
-│   └── build.gradle
-│
-├── ReactNative/                  # React Native implementation (Planned)
-│   ├── src/
-│   │   ├── components/          # Shared React components
-│   │   ├── screens/             # Screen components
-│   │   ├── navigation/          # Navigation setup
-│   │   └── utils/               # Utility functions
-│   ├── android/                 # Android native code
-│   ├── ios/                     # iOS native code
-│   └── package.json
 │
 └── README.md                     # This file
 ```
@@ -113,22 +78,6 @@ fandomsocial/
 - **Navigation**: Custom NavigationRouter with NavigationStack
 - **Minimum iOS**: iOS 17.0+
 - **IDE**: Xcode 15+
-
-### Android (Planned)
-- **Language**: Kotlin
-- **UI Framework**: Jetpack Compose
-- **Architecture**: MVVM
-- **Navigation**: Navigation Component
-- **Minimum SDK**: API 24 (Android 7.0)
-- **IDE**: Android Studio
-
-### React Native (Planned)
-- **Language**: TypeScript
-- **Framework**: React Native 0.72+
-- **Navigation**: React Navigation
-- **State Management**: React Context / Redux (TBD)
-- **Styling**: StyleSheet API
-- **IDE**: VS Code / WebStorm
 
 ## 🚀 Getting Started
 
